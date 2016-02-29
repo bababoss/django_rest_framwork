@@ -5,7 +5,7 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from snippets.models import Analysis
 from snippets.serializers import SnippetSerializer
-
+import simplejson
 class JSONResponse(HttpResponse):
     """
     An HttpResponse that renders its content into JSON.
@@ -42,7 +42,7 @@ def snippet_detail(request, pk):
     """
     try:
         snippet = Analysis.objects.get(pk=pk)
-    except Snippet.DoesNotExist:
+    except Analysis.DoesNotExist:
         return HttpResponse(status=404)
 
     if request.method == 'GET':
@@ -60,8 +60,25 @@ def snippet_detail(request, pk):
     elif request.method == 'DELETE':
         snippet.delete()
         return HttpResponse(status=204)
-    
+
+def ValuesQuerySetToDict(vqs):
+    return [item for item in vqs]
+   
 def index(request):
     snippets = Analysis.objects.all()
     serializer = SnippetSerializer(snippets, many=True)
+    user_id=Analysis.objects.values('user_id')   #query for user id
+    days=Analysis.objects.values('days')  #query for days
+
+    user_id_dict = ValuesQuerySetToDict(user_id) #user_id serilization
+    days_dict = ValuesQuerySetToDict(days)  # days_serilization
+    
+    user_id_json = simplejson.dumps(user_id_dict) # json encodind
+    days_json = simplejson.dumps(list(days_dict)) #json encoding
+    context = {
+        'user_id': user_id_json,
+        'days': days_json
+        
+    }
+   
     return render(request,'snippets/index.html', {'data': serializer.data})

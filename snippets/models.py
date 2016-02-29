@@ -13,7 +13,7 @@ STYLE_CHOICES = sorted((item, item) for item in get_all_styles())
 
 
 class Analysis(models.Model):
-    created = models.DateField()
+    created = models.DateField(null = True)
     user_id = models.IntegerField(default=0)
     days = models.IntegerField(default=0)
     

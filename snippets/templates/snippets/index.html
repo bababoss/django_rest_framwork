@@ -1,68 +1,102 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		{{name}}
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>Dashboard</title>
-
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-		<style type="text/css">
-${demo.css}
+ <!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Si2chip dashboard</title>
+		<style>
+		body{
+			margin-top: 30px;
+			margin-left:40px;
+		}
 		</style>
-		<script type="text/javascript">
-$(function () {
-    $('#container').highcharts({
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'Si2chip Employee Attendance Chart '
-        },
-        subtitle: {
-            text: 'Source: wwww.si2chip.com'
-        },
-        xAxis: {
-            categories: [
-               
-
-
-            ],
-            crosshair: true
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Number of Employee'
-            }
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f} users</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
-        plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0
-            }
-        },
-        series: [{
-            name: 'Days',
-            data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
-
-        }]
-    });
-});
-		</script>
-	</head>
-	<body>
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-
-<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-
-	</body>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>		
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+	<script type="text/javascript">
+        $(function () {
+			data = '{{data}}'
+                var processed_json = new Array();   
+                $.getJSON('http://127.0.0.1:8000/snippets/', function(data) {
+                    // Populate series
+                    for (i = 0; i < data.length; i++){
+                        processed_json.push([data[i].days, data[i].user_id]);
+                    }
+                 
+                    // draw chart
+                    $('#container1').highcharts({
+                    chart: {
+                        type: "column"
+					
+                    },
+                    title: {
+                        text: "Employee Attendance Chart "
+                    },
+                    xAxis: {
+                        type: 'category',
+                        allowDecimals: false,
+                        title: {
+                            text: "Days"
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            text: "Employee"
+                        }
+                    },
+                    series: [{
+	                    name: 'Number of Employee on this day:',
+                        data: processed_json
+						
+                    }]
+                }); 
+            });
+        });
+    </script>
+	<script type="text/javascript">
+        $(function () {
+			data = '{{data}}'
+                var processed_json = new Array();   
+                $.getJSON('http://127.0.0.1:8000/snippets/', function(data) {
+                    // Populate series
+                    for (i = 0; i < data.length; i++){
+                        processed_json.push([data[i].days, data[i].user_id]);
+                    }
+                 
+                    // draw chart
+                    $('#container2').highcharts({
+                    chart: {
+                        type: "column"
+                    },
+                    title: {
+                        text: "Employee worked >=9 hours"
+                    },
+                    xAxis: {
+                        type: 'category',
+                        allowDecimals: false,
+                        title: {
+                            text: "Days"
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            text: "Employee"
+                        }
+                    },
+                    series: [{
+	                    name: 'Number of Employee who worked >=9 hours on this day:',
+                        data: processed_json
+                    }]
+                }); 
+            });
+        });
+    </script>
+	
+</head>
+<body>
+   <div style=" width: 700px; font-size: 1.7em; font-weight: bold; margin: 2em auto; padding: 1em; border: 1px solid blue; border-radius: 0.5em">
+	Si2chip Employee Real Time Dashboard
+	</div>
+    <div id="container1" style="margin-left: 15%;height: 20%; width: 70%"></div>
+	<div id="container2" style="margin-left: 15%;margin-top: 10px;height: 20%; width: 70%;color:#2445a2;"></div>
+    
+</body>
 </html>

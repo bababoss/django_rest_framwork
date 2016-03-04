@@ -4,18 +4,15 @@
     <meta charset="utf-8" />
     <title>Si2chip dashboard</title>
 		<style>
-		body{
-			margin-top: 30px;
-			margin-left:40px;
-		}
+		
 		</style>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>		
 	<script src="http://code.highcharts.com/highcharts.js"></script>
 	<script type="text/javascript">
         $(function () {
-			data = '{{data}}'
+                var url = 'http://127.0.0.1:8000/charts/03/2016/'
                 var processed_json = new Array();   
-                $.getJSON('http://127.0.0.1:8000/snippets/', function(data) {
+                $.getJSON(url, function(data) {
                     // Populate series
                     for (i = 0; i < data.length; i++){
                         processed_json.push([data[i].days, data[i].user_id]);
@@ -53,7 +50,7 @@
     </script>
 	<script type="text/javascript">
         $(function () {
-			data = '{{data}}'
+
                 var processed_json = new Array();   
                 $.getJSON('http://127.0.0.1:8000/snippets/', function(data) {
                     // Populate series

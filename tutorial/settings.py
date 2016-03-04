@@ -23,6 +23,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '-gw4^b8&w9_l087)nr24*cm3*+-x#6z@q32*h%_9m*a#eqzn)i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
+# Include BOOTSTRAP3_FOLDER in path
+
+
+
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -39,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'snippets',
+
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -64,11 +70,21 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                "django.template.context_processors.i18n",
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
     },
 ]
+
+
+# List of finder classes that know how to find static files in
+# various locations.
+
+
 
 WSGI_APPLICATION = 'tutorial.wsgi.application'
 
@@ -125,4 +141,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "snippets/static/")
+STATIC_ROOT = os.path.join(BASE_DIR, "snippets/static/snippets")

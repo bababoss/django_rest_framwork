@@ -10,8 +10,12 @@
 	<script src="http://code.highcharts.com/highcharts.js"></script>
 	<script type="text/javascript">
         $(function () {
-                var url = 'http://127.0.0.1:8000/charts/03/2016/'
-                var processed_json = new Array();   
+                var url = 'http://127.0.0.1:8000/chartJson'
+	            var tmp = window.location.href
+                var res = tmp.slice(28, 39);
+                var url = url.concat(res); 
+
+				var processed_json = new Array();   
                 $.getJSON(url, function(data) {
                     // Populate series
                     for (i = 0; i < data.length; i++){
@@ -50,9 +54,9 @@
     </script>
 	<script type="text/javascript">
         $(function () {
-
+				var url = ''
                 var processed_json = new Array();   
-                $.getJSON('http://127.0.0.1:8000/snippets/', function(data) {
+                $.getJSON(url, function(data) {
                     // Populate series
                     for (i = 0; i < data.length; i++){
                         processed_json.push([data[i].days, data[i].user_id]);

@@ -5,4 +5,4 @@ from django.forms import widgets
 class  AnalysisForm(forms.ModelForm):
     class Meta:
         model = Analysis
-        fields = ['created']
+        fields = ['user_id']

@@ -40,7 +40,8 @@ def snippet_list(request):
     month1 = ['january','february','march','april','may','june','july','august','septmber','octomber','november','december']
     month = ['01','02','03']
     if request.method == 'GET':
-        snippets = Analysis.objects.filter(created__month=month[2],created__year=2016)  
+        #snippets = Analysis.objects.filter(created__month=month[2],created__year=2016)
+        snippets = Analysis.objects.filter(created__month=03)
         #serializer = SnippetSerializer(snippets, many=True)
         serializer = SnippetSerializer(snippets, many=True)
         data1=serializer.data
@@ -54,8 +55,6 @@ def snippet_list(request):
             serializer.save()
             return JSONResponse(serializer.data, status=201)
         return JSONResponse(serializer.errors, status=400)
-
-
 
 @csrf_exempt
 def snippet_detail(request, month, year):
@@ -90,8 +89,8 @@ def ValuesQuerySetToDict(vqs):
    
 def index(request, month, year):
 
-    
-   
+
+
     return render(request,'snippets/index.html', {})
 
 def dashboard(request):
@@ -99,6 +98,7 @@ def dashboard(request):
     if request.GET:
         data=request.GET
         print data['created']
+#GET data from AnalysisForm
     
     form = AnalysisForm(request.GET)
     context = {

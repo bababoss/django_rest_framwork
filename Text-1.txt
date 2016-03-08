@@ -1,0 +1,3 @@
+localhost:8000/charts/03/2016
+
+localhost:8000/charJson/

@@ -17,7 +17,7 @@ MONTH_CHOICES = ('January','february','march','april','may','june','july','augus
 
 
 class Analysis(models.Model):   
-    created = models.DateField(auto_now_add=False,null = True)
+    created = models.DateTimeField(auto_now_add=True,null = True)
     user_id = models.IntegerField(default=0)
     days = models.IntegerField(default=0)
     

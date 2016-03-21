@@ -89,7 +89,8 @@ def ValuesQuerySetToDict(vqs):
    
 def index(request, month, year):
 
-
+    query = Analysis.objects.all()
+    print type(query)
 
     return render(request,'snippets/index.html', {})
 
@@ -105,6 +106,8 @@ def dashboard(request):
         'form': form,
         
     }
+
+
     
     return render(request, 'snippets/dashboard.html', context)
     

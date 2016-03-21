@@ -24,3 +24,7 @@ class Analysis(models.Model):
 
     class Meta:
         ordering = ('created',)
+        
+    def __unicode__(self):
+        return str(self.user_id)
+    

@@ -4,7 +4,7 @@ from django.contrib import admin
 from .models import Analysis
 
 class AnalysisAdmin(admin.ModelAdmin):
-    list_display = ["user_id","days","created"]
+    list_display = ["user_id","attendance","created"]
     #code
     
 admin.site.register(Analysis, AnalysisAdmin)

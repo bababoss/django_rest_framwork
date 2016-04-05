@@ -41,7 +41,7 @@ def snippet_list(request):
     month = ['01','02','03']
     if request.method == 'GET':
         #snippets = Analysis.objects.filter(created__month=month[2],created__year=2016)
-        snippets = Analysis.objects.filter(created__month=03)
+        snippets = Analysis.objects.filter(user_id__contains = 1023)
         #serializer = SnippetSerializer(snippets, many=True)
         serializer = SnippetSerializer(snippets, many=True)
         data1=serializer.data
@@ -63,8 +63,8 @@ def snippet_detail(request, month, year):
     """
 
     try:
-        snippet = Analysis.objects.filter(created__month=month,created__year=year)
-        #snippet = Analysis.objects.get(pk=pk)
+        #snippet = Analysis.objects.filter(created__month=month,created__year=year,created__day=4,created__hour__gte=9)
+        snippet = Analysis.objects.filter(user_id__contains = 1030)
     except Analysis.DoesNotExist:
         return HttpResponse(status=404)
 
@@ -89,8 +89,21 @@ def ValuesQuerySetToDict(vqs):
    
 def index(request, month, year):
 
-    query = Analysis.objects.all()
-    print type(query)
+    query = Analysis.objects.filter(user_id__contains = 1030, created__month=month,created__year=year,created__day=5)
+    j=1
+    for i in query:
+        if(j%2 != 0):
+            print "odd===",j
+            temp=i.created
+            j+=1
+        elif (j%2 == 0):
+            print "even",j
+            timediff = i.created - temp
+            times=timediff.total_seconds()
+            times+=times
+            j+=1
+            print "times is here ======",times/3600
+        
 
     return render(request,'snippets/index.html', {})
 

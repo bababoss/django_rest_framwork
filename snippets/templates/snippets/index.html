@@ -19,7 +19,7 @@
                 $.getJSON(url, function(data) {
                     // Populate series
                     for (i = 0; i < data.length; i++){
-                        processed_json.push([data[i].days, data[i].user_id]);
+                        processed_json.push([data[i].created, data[i].user_id]);
                     }
                  
                     // draw chart
@@ -35,7 +35,7 @@
                         type: 'category',
                         allowDecimals: false,
                         title: {
-                            text: "Days"
+                            text: "DateTime"
                         }
                     },
                     yAxis: {
